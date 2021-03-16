@@ -10,6 +10,7 @@ function App() {
   
   const [task, setTask] = useState({
     description: "",
+    isComplete: false
   });
 
   const handleChanges = (e) => {
@@ -24,7 +25,17 @@ function App() {
     setTasks((oldTasks) => [...oldTasks, task]);
     setTask({
       description: "",
+      isComplete: false
     })
+  }
+
+  const handleIsComplete = (idx) => {
+        tasks.forEach((t,i) => {
+      if (i === idx) {
+        t.isComplete = !t.isComplete;
+      }
+    }) 
+    setTasks([...tasks])
   }
 
   const handleRemoveTask = (idx) => {
@@ -48,6 +59,8 @@ function App() {
                 key = {i}
                 idx = {i}
                 taskDescription = {t.description}
+                isComplete = {t.isComplete}
+                handleIsComplete = {handleIsComplete}
                 handleDeleteTask = {handleRemoveTask}
               />
             )

@@ -1,13 +1,6 @@
 import React, { useState } from 'react';
 
-const Task = ({idx, taskDescription, handleDeleteTask}) => {
-
-    const [isComplete, setIsComplete] = useState(false);
-
-    const callTwoFunc = (idx) => {
-        handleDeleteTask(idx);
-        setIsComplete(false);
-    }
+const Task = ({idx, taskDescription, isComplete, handleDeleteTask, handleIsComplete}) => {
 
     return(
         <div>
@@ -19,10 +12,11 @@ const Task = ({idx, taskDescription, handleDeleteTask}) => {
                                 type="checkbox" 
                                 name="isChecked"
                                 checked={isComplete}
+                                value={isComplete}
                                 onChange = {(e) => {
-                                    setIsComplete(e.target.checked)
-                                    console.log(isComplete);
+                                    handleIsComplete(idx);
                                 }}
+                                readOnly
                                 />
                         </div>
                     </div>
@@ -32,12 +26,11 @@ const Task = ({idx, taskDescription, handleDeleteTask}) => {
                                     <s>{taskDescription}</s>
                                     <button 
                                         type="button" 
-                                        className="btn btn-sm btn-danger"
-                                        onClick = {
-                                            () => callTwoFunc(idx)
-                                        }
+                                        className="btn btn-sm btn-danger align-middle py-0"
+                                        style={{height: "24px"}}
+                                        onClick = {() => handleDeleteTask(idx)}
                                     >
-                                        Delete
+                                        X
                                     </button>
                                 </div > 
                                 : 
